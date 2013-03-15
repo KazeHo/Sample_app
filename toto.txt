@@ -1,7 +1,0 @@
-bonjours
-je
-suis
-le
-fichier
-toto.txt
-ameliore.

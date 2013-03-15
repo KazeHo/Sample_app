@@ -3,7 +3,7 @@
 }
 
 body {
-  background: #cff;
+  background: #E6E2AF;
 }
 
 header {
@@ -34,12 +34,12 @@ a {
 }
 
 a:hover {
-  color: #069;
+  color: #046380;
   text-decoration: underline;
 }
 
 a:visited {
-  color: #069;
+  color: #002F2F;
 }
 
 /* Navigation */
@@ -71,10 +71,11 @@ nav ul li a {
 }
 
 nav ul li a:visited {
-  color: #09c;
+  color: #002F2F;
 }
 
 nav ul li a:hover {
+  color: #046380;
   text-decoration: underline;
 }
 
@@ -87,7 +88,7 @@ a.signup_button {
   text-align: center;
   width: 190px;
   color: #fff;
-  background: #006400;
+  background: #002F2F;
   font-size: 150%;
   font-weight: bold;
   padding: 20px;
@@ -129,7 +130,8 @@ td.sidebar {
   width: 30%;
   padding: 1em;
   vertical-align: top;
-  background: #ffc;
+  background: #A7A37E;
+  color: white;
 }
 
 .profile img.gravatar {
