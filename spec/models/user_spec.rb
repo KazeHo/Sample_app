@@ -110,5 +110,4 @@ describe User do
       end # end it
     end # end describe "authenticate method"
   end # end describe "password encryption"
-
 end # end describe "User"

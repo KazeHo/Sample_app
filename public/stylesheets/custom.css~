@@ -88,13 +88,13 @@ a.signup_button {
   text-align: center;
   width: 190px;
   color: #fff;
-  background: #046380;
+  background: #002F2F;
   font-size: 150%;
   font-weight: bold;
   padding: 20px;
 }
 
-/* Coins arrondis */
+/* Bouton inscription - Coins arrondis */
 
 .round {
   -moz-border-radius:    10px;
@@ -137,4 +137,9 @@ td.sidebar {
 .profile img.gravatar {
   border: 1px solid #999;
   margin-bottom: -15px;
+}
+
+/* Sign up */
+div.field, div.actions {
+  margin-bottom: 10px;
 }
