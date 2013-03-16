@@ -55,7 +55,7 @@ describe "Users" do
       it "devrait identifier un utilisateur puis le deconnecter" do
         user = Factory(:user)
         visit signin_path
-        fill_in "eMail",    :with => user.email
+        fill_in "eMail", :with => user.email
         fill_in "Mot de passe", :with => user.password
         click_button
         controller.should be_signed_in

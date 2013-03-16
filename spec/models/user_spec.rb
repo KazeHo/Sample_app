@@ -118,4 +118,25 @@ describe User do
   end # end describe "password encryption"
 
 
+  describe "Attribut admin" do
+
+    before(:each) do
+      @user = User.create!(@attr)
+    end # end before
+
+    it "devrait confirmer l'existence de `admin`" do
+      @user.should respond_to(:admin)
+    end # end it
+
+    it "ne devrait pas etre un administrateur par defaut" do
+      @user.should_not be_admin
+    end # end it
+
+    it "devrait pouvoir devenir un administrateur" do
+      @user.toggle!(:admin)
+      @user.should be_admin
+    end # end it
+  end # end describe "password encryption"
+
+
 end # end describe "User"

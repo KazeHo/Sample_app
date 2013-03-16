@@ -2,11 +2,6 @@ require 'spec_helper'
 
 describe "Users" do
 
-  before(:each) do
-    @attr = { :nom => "Example User", :email => "user@example.com", :password =>"foobar", :password_confirmation =>"foobar" }
-  end # end before
-
-
   describe "Une inscription" do
 
     describe "ratee" do
@@ -16,7 +11,7 @@ describe "Users" do
           fill_in "nom", :with => ""
           fill_in "email", :with => ""
           fill_in "password", :with => ""
-          fill_in "password_confirmation", :with => ""
+          fill_in "confirmation", :with => ""
           click_button
           response.should render_template('users/new')
           response.should have_selector("div#error_explanation")
@@ -49,8 +44,8 @@ describe "Users" do
     describe "l'echec" do
       it "ne devrait pas identifier l'utilisateur" do
         visit signin_path
-        fill_in "email",    :with => ""
-        fill_in "password", :with => ""
+        fill_in "eMail",    :with => ""
+        fill_in "Mot de passe", :with => ""
         click_button
         response.should have_selector("div.flash.error", :content => "Combinaison mail/mot de passe invalide.")
       end # end it
