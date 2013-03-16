@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
 
   before(:each) do
-    @attr = { :nom => "Example User", :email => "user@example.com" }
+    @attr = { :nom => "Example User", :email => "user@example.com", :password =>"foobar", :password_confirmation =>"foobar" }
   end # end before
 
   it "devrait creer une nouvelle instance dotee des attributs valides" do

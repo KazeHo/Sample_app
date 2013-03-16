@@ -1,7 +1,14 @@
 require 'spec_helper'
 
 describe "Users" do
+
+  before(:each) do
+    @attr = { :nom => "Example User", :email => "user@example.com", :password =>"foobar", :password_confirmation =>"foobar" }
+  end # end before
+
+
   describe "Une inscription" do
+
     describe "ratee" do
       it "ne devrait pas creer un nouvel utilisateur" do
         lambda do
@@ -9,13 +16,14 @@ describe "Users" do
           fill_in "nom", :with => ""
           fill_in "email", :with => ""
           fill_in "password", :with => ""
-          fill_in "Confirmation mot de passe", :with => ""
+          fill_in "password_confirmation", :with => ""
           click_button
           response.should render_template('users/new')
           response.should have_selector("div#error_explanation")
         end.should_not change(User, :count)
       end # end it
     end # end describe "ratee"
+
 
     describe "reussie" do
       it "devrait creer un nouvel utilisateur" do
@@ -24,7 +32,7 @@ describe "Users" do
           fill_in "nom", :with => "Example User"
           fill_in "email", :with => "user@example.com"
           fill_in "password", :with => "foobar"
-          fill_in "Confirmation mot de passe", :with => "foobar"
+          fill_in "confirmation", :with => "foobar"
           click_button
           response.should have_selector("div.flash.success",
                                         :content => "Bienvenue")
@@ -34,4 +42,34 @@ describe "Users" do
     end # end describe "reussie"
 
   end # end describe "Une inscription"
+
+
+  describe "identification/deconnexion" do
+
+    describe "l'echec" do
+      it "ne devrait pas identifier l'utilisateur" do
+        visit signin_path
+        fill_in "email",    :with => ""
+        fill_in "password", :with => ""
+        click_button
+        response.should have_selector("div.flash.error", :content => "Combinaison mail/mot de passe invalide.")
+      end # end it
+    end # end describe "l'echec"
+
+    describe "le succes" do
+      it "devrait identifier un utilisateur puis le deconnecter" do
+        user = Factory(:user)
+        visit signin_path
+        fill_in "eMail",    :with => user.email
+        fill_in "Mot de passe", :with => user.password
+        click_button
+        controller.should be_signed_in
+        click_link "Deconnexion"
+        controller.should_not be_signed_in
+      end # end it
+    end # end describe "le succès"
+
+  end # end describe "identification/deconnexion"
+
+
 end # end describe "Users"

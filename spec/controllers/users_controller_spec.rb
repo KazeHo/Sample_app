@@ -3,6 +3,8 @@ require 'spec_helper'
 describe UsersController do
   render_views
 
+
+
   describe "GET 'show'" do
     before(:each) do
       @user = Factory(:user)
@@ -34,6 +36,8 @@ describe UsersController do
     end # end it
   end # end describe "GET 'show'"
 
+
+
   describe "GET 'new'" do
     it "devrait reussir" do
       get 'new'
@@ -46,6 +50,8 @@ describe UsersController do
     end # end it
   end # end describe "GET 'new'"
 
+
+
   describe "POST 'create'" do
     describe "succes" do
       before(:each) do
@@ -57,6 +63,11 @@ describe UsersController do
         lambda do
           post :create, :user => @attr
         end.should change(User, :count).by(1)
+      end # end it
+
+      it "devrait identifier l'utilisateur" do
+        post :create, :user => @attr
+        controller.should be_signed_in
       end # end it
 
       it "devrait rediriger vers la page d'affichage de l'utilisateur" do

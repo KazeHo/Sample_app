@@ -19,30 +19,35 @@ class User < ActiveRecord::Base
 
   def has_password?(submitted_password)
     encrypted_password == encrypt(submitted_password)
-  end
+  end # end def has_password?(submitted_password)
 
   def self.authenticate(email, submitted_password)
     user = find_by_email(email)
     return nil  if user.nil?
     return user if user.has_password?(submitted_password)
-  end
+  end # end def self.authenticate(email, submitted_password)
+
+  def self.authenticate_with_salt(id, cookie_salt)
+    user = find_by_id(id)
+    (user && user.salt == cookie_salt) ? user : nil
+  end # end def self.authenticate_with_salt(id, cookie_salt)
 
   private
 
     def encrypt_password
       self.salt = make_salt if new_record?
       self.encrypted_password = encrypt(password)
-    end
+    end # end def encrypt_password
 
     def encrypt(string)
       secure_hash("#{salt}--#{string}")
-    end
+    end # end def encrypt(string)
 
     def make_salt
       secure_hash("#{Time.now.utc}--#{password}")
-    end
+    end # end def make_salt
 
     def secure_hash(string)
       Digest::SHA2.hexdigest(string)
-    end
-end
+    end # end def secure_hash(string)
+end # end class User
