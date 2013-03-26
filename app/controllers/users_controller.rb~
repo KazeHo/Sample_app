@@ -1,14 +1,15 @@
+require 'will_paginate'
+require 'will_paginate/active_record'
+
 class UsersController < ApplicationController
   before_filter :authenticate, :only => [:index, :edit, :update, :destroy]
   before_filter :correct_user, :only => [:edit, :update]
-  before_filter :admin_user,   :only => :destroy
 
 
-  def index
-    @titre = "Tous les utilisateurs"
-    @users = User.paginate(:page => params[:page])
-  end # end def index
-
+def index
+    @titre = "Liste des utilisateurs"
+    @users = User.all
+  end
 
 
   def show
@@ -76,10 +77,5 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
     end # end def correct_user
-
-
-   def admin_user
-      redirect_to(root_path) unless current_user.admin?
-    end # end def admin_user
 
 end

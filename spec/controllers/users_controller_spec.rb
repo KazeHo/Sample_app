@@ -4,64 +4,6 @@ describe UsersController do
   render_views
 
 
-  describe "GET 'index'" do
-
-    describe "pour utilisateur non identifies" do
-      it "devrait refuser l'acces" do
-        get :index
-        response.should redirect_to(signin_path)
-        flash[:notice].should =~ /identifier/i
-      end # end it
-    end # end describe "pour utilisateur non identifies"
-
-
-    describe "pour un utilisateur identifie" do
-      before(:each) do
-        @user = test_sign_in(Factory(:user))
-        second = Factory(:user, :email => "another@example.com")
-        third  = Factory(:user, :email => "another@example.net")
-
-        @users = [@user, second, third]
-        30.times do
-          @users << Factory(:user, :email => Factory.next(:email))
-        end # end @users = [@user, second, third]
-      end # end before
-
-      it "devrait reussir" do
-        get :index
-        response.should be_success
-      end # end it
-
-      it "devrait avoir le bon titre" do
-        get :index
-        response.should have_selector("title", :content => "Tous les utilisateurs")
-      end
-
-      it "devrait avoir un element pour chaque utilisateur" do
-        get :index
-        @users[0..2].each do |user|
-          response.should have_selector("li", :content => user.nom)
-        end # end @users[0..2].each
-      end # end it
-
-      it "devrait paginer les utilisateurs" do
-        get :index
-        response.should have_selector("div.pagination")
-        response.should have_selector("span.disabled", :content => "Previous")
-        response.should have_selector("a", :href => "/users?page=2",
-                                           :content => "2")
-        response.should have_selector("a", :href => "/users?page=2",
-                                           :content => "Next")
-      end # end it
-
-    end # end describe "pour un utilisateur identifie"
-
-  end # end describe "GET 'index'"
-
-
-
-
-
 
   describe "GET 'show'" do
     before(:each) do
@@ -96,6 +38,8 @@ describe UsersController do
 
 
 
+
+
   describe "GET 'new'" do
     it "devrait reussir" do
       get 'new'
@@ -107,6 +51,8 @@ describe UsersController do
       response.should have_selector("title", :content => "Inscription")
     end # end it
   end # end describe "GET 'new'"
+
+
 
 
 
@@ -165,6 +111,8 @@ describe UsersController do
 
 
 
+
+
   describe "GET 'edit'" do
 
     before(:each) do
@@ -189,6 +137,9 @@ describe UsersController do
                                          :content => "changer")
     end # end it
   end # end describe "GET 'edit'"
+
+
+
 
 
 
@@ -286,48 +237,6 @@ describe UsersController do
   end # end describe "authentification des pages edit/update"
 
 
-
-
-  describe "DELETE 'destroy'" do
-
-    before(:each) do
-      @user = Factory(:user)
-    end # end before
-
-    describe "en tant qu'utilisateur non identifie" do
-      it "devrait refuser l'acces" do
-        delete :destroy, :id => @user
-        response.should redirect_to(signin_path)
-      end # end it
-    end # end describe "en tant qu'utilisateur non identifie"
-
-    describe "en tant qu'utilisateur non administrateur" do
-      it "devrait proteger la page" do
-        test_sign_in(@user)
-        delete :destroy, :id => @user
-        response.should redirect_to(root_path)
-      end # end it
-    end # end describe "en tant qu'utilisateur non administrateur"
-
-    describe "en tant qu'administrateur" do
-
-      before(:each) do
-        admin = Factory(:user, :email => "admin@example.com", :admin => true)
-        test_sign_in(admin)
-      end # end it
-
-      it "devrait detruire l'utilisateur" do
-        lambda do
-          delete :destroy, :id => @user
-        end.should change(User, :count).by(-1)
-      end # end it
-
-      it "devrait rediriger vers la page des utilisateurs" do
-        delete :destroy, :id => @user
-        response.should redirect_to(users_path)
-      end # end it
-    end # end describe "en tant qu'administrateur"
-  end # end describe "DELETE 'destroy'"
-
-
 end
+
+

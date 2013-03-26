@@ -128,7 +128,7 @@ describe User do
       @user.should respond_to(:admin)
     end # end it
 
-    it "ne devrait pas être un administrateur par defaut" do
+    it "ne devrait pas etre un administrateur par defaut" do
       @user.should_not be_admin
     end # end it
 

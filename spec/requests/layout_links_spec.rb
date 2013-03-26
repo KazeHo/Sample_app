@@ -43,12 +43,12 @@ describe "LayoutLinks" do
     before(:each) do
       @user = Factory(:user)
       visit signin_path
-      fill_in :email,    :with => @user.email
+      fill_in :email, :with => @user.email
       fill_in "Mot de passe", :with => @user.password
       click_button
     end # end describe "quand identifie" 
 
-    it "devrait avoir un lien de deconnxion" do
+    it "devrait avoir un lien de deconnexion" do
       visit root_path
       response.should have_selector("a", :href => signout_path,
                                          :content => "Deconnexion")

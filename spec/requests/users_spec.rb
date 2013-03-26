@@ -8,9 +8,9 @@ describe "Users" do
       it "ne devrait pas creer un nouvel utilisateur" do
         lambda do
           visit signup_path
-          fill_in "nom", :with => ""
-          fill_in "email", :with => ""
-          fill_in "password", :with => ""
+          fill_in "Nom", :with => ""
+          fill_in "eMail", :with => ""
+          fill_in "Mot de passe", :with => ""
           fill_in "confirmation", :with => ""
           click_button
           response.should render_template('users/new')
@@ -24,9 +24,9 @@ describe "Users" do
       it "devrait creer un nouvel utilisateur" do
         lambda do
           visit signup_path
-          fill_in "nom", :with => "Example User"
-          fill_in "email", :with => "user@example.com"
-          fill_in "password", :with => "foobar"
+          fill_in "Nom", :with => "Example User"
+          fill_in "eMail", :with => "user@example.com"
+          fill_in "Mot de passe", :with => "foobar"
           fill_in "confirmation", :with => "foobar"
           click_button
           response.should have_selector("div.flash.success",
@@ -44,7 +44,7 @@ describe "Users" do
     describe "l'echec" do
       it "ne devrait pas identifier l'utilisateur" do
         visit signin_path
-        fill_in "eMail",    :with => ""
+        fill_in :email,    :with => ""
         fill_in "Mot de passe", :with => ""
         click_button
         response.should have_selector("div.flash.error", :content => "Combinaison mail/mot de passe invalide.")
@@ -55,7 +55,7 @@ describe "Users" do
       it "devrait identifier un utilisateur puis le deconnecter" do
         user = Factory(:user)
         visit signin_path
-        fill_in "eMail", :with => user.email
+        fill_in :email, :with => user.email
         fill_in "Mot de passe", :with => user.password
         click_button
         controller.should be_signed_in
