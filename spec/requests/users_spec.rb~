@@ -10,7 +10,7 @@ describe "Users" do
           visit signup_path
           fill_in "Nom", :with => ""
           fill_in "eMail", :with => ""
-          fill_in :password, :with => ""
+          fill_in "Mot de passe", :with => ""
           fill_in "confirmation", :with => ""
           click_button
           response.should render_template('users/new')
@@ -26,7 +26,7 @@ describe "Users" do
           visit signup_path
           fill_in "Nom", :with => "Example User"
           fill_in "eMail", :with => "user@example.com"
-          fill_in :password, :with => "foobar"
+          fill_in "Mot de passe", :with => "foobar"
           fill_in "confirmation", :with => "foobar"
           click_button
           response.should have_selector("div.flash.success",
